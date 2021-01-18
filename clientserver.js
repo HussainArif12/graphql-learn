@@ -11,10 +11,11 @@ type Country {
     name: String,
     alpha2: ID!,
     covid: Covid,
+    prediction: [Prediction]
 }
 type Covid {
     country: Country, 
-    last_Update: String,
+    last_update: String,
     cases: Int,
     deaths: Int, 
     recovered: Int,
@@ -51,6 +52,9 @@ const resolvers = {
   Country: {
     covid(parent) {
       return getByUrl(`status/${parent.alpha2}`);
+    },
+    prediction(parent) {
+      return getByUrl(`prediction/${parent.alpha2}`);
     },
   },
   Covid: {
